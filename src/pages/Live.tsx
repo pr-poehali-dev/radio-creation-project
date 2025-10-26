@@ -1,10 +1,16 @@
+import { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
 import { Navigation } from '@/components/Navigation';
 import { RadioPlayer } from '@/components/RadioPlayer';
+import { radioTracks, Track } from '@/data/tracks';
 
 const Live = () => {
+  const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
+  const [currentTrack, setCurrentTrack] = useState<Track | undefined>(radioTracks[0]);
+
   const currentShow = {
     title: 'Вечерний эфир',
     host: 'Александра Иванова',
@@ -63,6 +69,43 @@ const Live = () => {
           </Card>
 
           <div>
+            <h2 className="text-2xl font-bold mb-4">Плейлист</h2>
+            <div className="space-y-2 mb-8">
+              {radioTracks.map((track, index) => (
+                <Card 
+                  key={track.id}
+                  className={`p-4 transition-all cursor-pointer hover:bg-muted/50 ${
+                    currentTrack?.id === track.id ? 'bg-primary/5 border-primary' : ''
+                  }`}
+                  onClick={() => {
+                    setCurrentTrack(track);
+                    setCurrentTrackIndex(index);
+                  }}
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4 flex-1">
+                      <div className="w-10 h-10 rounded bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold">
+                        {index + 1}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-semibold truncate">{track.title}</h3>
+                        <p className="text-sm text-muted-foreground truncate">{track.artist}</p>
+                      </div>
+                      <span className="text-sm text-muted-foreground">{track.duration}</span>
+                    </div>
+                    
+                    {currentTrack?.id === track.id && (
+                      <Button size="icon" variant="ghost" className="ml-2">
+                        <Icon name="Music" size={20} className="text-primary" />
+                      </Button>
+                    )}
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </div>
+
+          <div>
             <h2 className="text-2xl font-bold mb-4">Расписание эфира</h2>
             <div className="space-y-2">
               {schedule.map((item, index) => (
@@ -108,9 +151,20 @@ const Live = () => {
       </main>
 
       <RadioPlayer
+        currentTrack={currentTrack}
         currentShow={currentShow.title}
         currentHost={currentShow.host}
         isLive={true}
+        onNext={() => {
+          const nextIndex = (currentTrackIndex + 1) % radioTracks.length;
+          setCurrentTrackIndex(nextIndex);
+          setCurrentTrack(radioTracks[nextIndex]);
+        }}
+        onPrevious={() => {
+          const prevIndex = currentTrackIndex === 0 ? radioTracks.length - 1 : currentTrackIndex - 1;
+          setCurrentTrackIndex(prevIndex);
+          setCurrentTrack(radioTracks[prevIndex]);
+        }}
       />
     </div>
   );

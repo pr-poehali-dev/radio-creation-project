@@ -156,7 +156,7 @@ const Index = () => {
       <RadioPlayer
         currentShow={currentShow.title}
         currentHost={currentShow.host}
-        isLive={true}
+        isLive={false}
       />
     </div>
   );
