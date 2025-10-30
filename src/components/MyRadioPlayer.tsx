@@ -68,6 +68,35 @@ export const MyRadioPlayer = ({
     };
   }, []);
 
+  useEffect(() => {
+    const hidePlayerElements = () => {
+      const selectors = [
+        '[data-myinfo="listeners"]',
+        '.player-listeners',
+        '[class*="listener"]',
+        '[id*="listener"]'
+      ];
+      
+      selectors.forEach(selector => {
+        document.querySelectorAll(selector).forEach(el => {
+          (el as HTMLElement).style.display = 'none';
+          (el as HTMLElement).style.visibility = 'hidden';
+          (el as HTMLElement).style.opacity = '0';
+        });
+      });
+    };
+
+    const observer = new MutationObserver(hidePlayerElements);
+    observer.observe(document.body, { childList: true, subtree: true });
+    
+    const interval = setInterval(hidePlayerElements, 500);
+
+    return () => {
+      observer.disconnect();
+      clearInterval(interval);
+    };
+  }, []);
+
   return (
     <div className="space-y-6 animate-fade-in">
       <div className="relative overflow-hidden bg-gradient-to-br from-primary/20 via-card to-secondary/10 border-2 border-primary/30 rounded-3xl p-8 shadow-2xl shadow-primary/20">

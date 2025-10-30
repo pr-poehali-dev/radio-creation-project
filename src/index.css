@@ -81,11 +81,17 @@
   }
 }
 
-.my_player [data-myinfo="listeners"],
-.my_player .player-listeners,
-#my_player [data-myinfo="listeners"],
-#my_player .player-listeners {
+[data-myinfo="listeners"],
+.player-listeners,
+*[class*="listener"],
+*[id*="listener"],
+.my_player *:has([data-myinfo="listeners"]),
+#my_player *:has([data-myinfo="listeners"]) {
   display: none !important;
   visibility: hidden !important;
   opacity: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+  position: absolute !important;
+  pointer-events: none !important;
 }
