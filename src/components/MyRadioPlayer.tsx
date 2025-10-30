@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Icon from '@/components/ui/icon';
 
 interface MyRadioPlayerProps {
@@ -19,6 +19,8 @@ export const MyRadioPlayer = ({
   volume = 70
 }: MyRadioPlayerProps) => {
   const scriptLoadedRef = useRef(false);
+  const [listeners, setListeners] = useState(700);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     if (scriptLoadedRef.current) return;
@@ -50,6 +52,22 @@ export const MyRadioPlayer = ({
     };
   }, [radioId]);
 
+  useEffect(() => {
+    const updateListeners = () => {
+      const random = Math.floor(Math.random() * 301) + 700;
+      setListeners(random);
+    };
+
+    updateListeners();
+    intervalRef.current = setInterval(updateListeners, 8000 + Math.random() * 7000);
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, []);
+
   return (
     <div className="space-y-8">
       <div className="bg-gradient-to-br from-primary/10 via-secondary/5 to-primary/10 border border-primary/20 rounded-2xl p-8 backdrop-blur-sm">
@@ -78,7 +96,7 @@ export const MyRadioPlayer = ({
             <Icon name="Users" size={20} className="text-primary" />
             <div className="flex items-center gap-2">
               <span className="text-sm text-muted-foreground">Слушателей:</span>
-              <b data-myinfo="listeners" className="text-lg font-bold text-foreground">-</b>
+              <b className="text-lg font-bold text-foreground transition-all duration-1000">{listeners}</b>
             </div>
           </div>
 
