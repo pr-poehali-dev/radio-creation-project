@@ -113,6 +113,10 @@ export const MyRadioPlayer = ({
             <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
             <span data-myinfo="isonline" className="text-sm font-medium text-foreground">Подключение...</span>
           </div>
+
+          <div className="hidden">
+            <b data-myinfo="listeners">-</b>
+          </div>
         </div>
 
         <div className="mt-6 text-center">
