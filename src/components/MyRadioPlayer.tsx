@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import Icon from '@/components/ui/icon';
 
 interface MyRadioPlayerProps {
@@ -17,6 +18,38 @@ export const MyRadioPlayer = ({
   autoplay = 1,
   volume = 70
 }: MyRadioPlayerProps) => {
+  const scriptLoadedRef = useRef(false);
+
+  useEffect(() => {
+    if (scriptLoadedRef.current) return;
+
+    const existingScript = document.querySelector('script[src*="myradio24.com/player/player.js"]');
+    if (existingScript) {
+      existingScript.remove();
+    }
+
+    const script = document.createElement('script');
+    script.src = 'https://myradio24.com/player/player.js?v3.31';
+    script.setAttribute('data-radio', radioId);
+    script.setAttribute('data-interval', '15');
+    script.setAttribute('data-vmid', '0');
+    script.setAttribute('data-lang', 'ru');
+    script.async = true;
+
+    script.onload = () => {
+      scriptLoadedRef.current = true;
+    };
+
+    document.body.appendChild(script);
+
+    return () => {
+      const scriptToRemove = document.querySelector('script[src*="myradio24.com/player/player.js"]');
+      if (scriptToRemove) {
+        scriptToRemove.remove();
+      }
+    };
+  }, [radioId]);
+
   return (
     <div className="space-y-8">
       <div className="bg-gradient-to-br from-primary/10 via-secondary/5 to-primary/10 border border-primary/20 rounded-2xl p-8 backdrop-blur-sm">
