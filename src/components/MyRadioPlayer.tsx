@@ -60,7 +60,7 @@ export const MyRadioPlayer = ({
           </div>
         </div>
 
-        <div className="flex justify-center">
+        <div className="flex justify-center mb-6">
           <div 
             id="my_player" 
             className="my_player" 
@@ -71,6 +71,41 @@ export const MyRadioPlayer = ({
             data-volume={volume}
             data-streamurl={`https://myradio24.org/${radioId}`}
           />
+        </div>
+
+        <div className="flex flex-wrap items-center justify-center gap-6 pt-6 border-t border-border/50">
+          <div className="flex items-center gap-2 px-4 py-2 bg-card/50 rounded-lg border border-border/50">
+            <Icon name="Users" size={20} className="text-primary" />
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-muted-foreground">Слушателей:</span>
+              <b data-myinfo="listeners" className="text-lg font-bold text-foreground">-</b>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2 px-4 py-2 bg-card/50 rounded-lg border border-border/50">
+            <Icon name="Radio" size={20} className="text-primary" />
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-muted-foreground">Качество:</span>
+              <b data-myinfo="kbps" className="text-lg font-bold text-foreground">-</b>
+              <span className="text-sm text-muted-foreground">kbps</span>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2 px-4 py-2 bg-card/50 rounded-lg border border-border/50">
+            <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+            <span data-myinfo="isonline" className="text-sm font-medium text-foreground">Подключение...</span>
+          </div>
+        </div>
+
+        <div className="mt-6 text-center">
+          <div 
+            data-myinfo="img" 
+            className="mx-auto w-48 h-48 bg-cover bg-center rounded-xl shadow-2xl border border-border hidden"
+          />
+          <div className="mt-3">
+            <div data-myinfo="song" className="text-xl font-bold text-foreground mb-1">Загрузка...</div>
+            <div data-myinfo="streamname" className="text-sm text-muted-foreground">-</div>
+          </div>
         </div>
       </div>
 
