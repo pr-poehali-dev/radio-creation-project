@@ -80,3 +80,12 @@
     @apply bg-primary/40 rounded-full hover:bg-primary/60;
   }
 }
+
+.my_player [data-myinfo="listeners"],
+.my_player .player-listeners,
+#my_player [data-myinfo="listeners"],
+#my_player .player-listeners {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
