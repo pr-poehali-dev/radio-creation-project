@@ -59,25 +59,25 @@ const Live = () => {
                 </div>
                 <Badge variant="secondary" className="text-sm">
                   <Icon name="Users" size={14} className="mr-1" />
-                  {currentShow.listeners.toLocaleString()} слушателей
+                  <b data-myinfo="listeners">0</b> слушателей
                 </Badge>
               </div>
             </div>
 
             <div className="space-y-4">
               <div>
-                <h1 className="text-4xl font-bold mb-2">{currentShow.title}</h1>
+                <h1 className="text-4xl font-bold mb-2" data-myinfo="streamname">Загрузка...</h1>
                 <p className="text-lg text-muted-foreground flex items-center gap-2">
                   <Icon name="Mic" size={18} />
-                  {currentShow.host}
+                  <span data-myinfo="song">Ожидание трека...</span>
                 </p>
               </div>
 
-              <p className="text-muted-foreground">{currentShow.description}</p>
-
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Icon name="Clock" size={16} />
-                <span>{currentShow.startTime} - {currentShow.endTime}</span>
+                <Icon name="Radio" size={16} />
+                <span data-myinfo="kbps">-</span> kbps
+                <span className="mx-2">•</span>
+                <span data-myinfo="isonline">Подключение...</span>
               </div>
             </div>
           </Card>
