@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
 import { Navigation } from '@/components/Navigation';
 import { RadioPlayer } from '@/components/RadioPlayer';
+import { MyRadioPlayer } from '@/components/MyRadioPlayer';
 import { radioTracks, Track } from '@/data/tracks';
 
 const Live = () => {
@@ -36,6 +37,19 @@ const Live = () => {
       
       <main className="container mx-auto px-4 pt-24 pb-32">
         <div className="max-w-4xl mx-auto space-y-8 animate-fade-in">
+          <Card className="p-8 bg-gradient-to-br from-primary/10 to-secondary/10 border-primary/20">
+            <MyRadioPlayer 
+              radioId="54137"
+              player="energy"
+              skin="blue"
+              width={200}
+              autoplay={1}
+              volume={70}
+              showVisualizer={true}
+              showLastSongs={true}
+            />
+          </Card>
+
           <Card className="p-8 bg-gradient-to-br from-primary/10 to-secondary/10 border-primary/20">
             <div className="flex items-start justify-between mb-6">
               <div className="flex items-center gap-3">
