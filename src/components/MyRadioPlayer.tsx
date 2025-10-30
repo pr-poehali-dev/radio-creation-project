@@ -1,5 +1,3 @@
-import { useEffect, useRef } from 'react';
-
 interface MyRadioPlayerProps {
   radioId?: string;
   player?: 'default' | 'lite' | 'energy' | 'custom';
@@ -17,37 +15,8 @@ export const MyRadioPlayer = ({
   autoplay = 1,
   volume = 70
 }: MyRadioPlayerProps) => {
-  const scriptRef = useRef<HTMLScriptElement | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (scriptRef.current) {
-      scriptRef.current.remove();
-    }
-
-    const script = document.createElement('script');
-    script.src = `https://myradio24.com/player/player.js?v3.31`;
-    script.setAttribute('data-radio', radioId);
-    script.setAttribute('data-interval', '15');
-    script.setAttribute('data-vmid', '0');
-    script.setAttribute('data-lang', 'ru');
-    script.async = true;
-
-    if (containerRef.current) {
-      containerRef.current.appendChild(script);
-      scriptRef.current = script;
-    }
-
-    return () => {
-      if (scriptRef.current) {
-        scriptRef.current.remove();
-        scriptRef.current = null;
-      }
-    };
-  }, [radioId]);
-
   return (
-    <div ref={containerRef}>
+    <div>
       <div 
         id="my_player" 
         className="my_player" 
